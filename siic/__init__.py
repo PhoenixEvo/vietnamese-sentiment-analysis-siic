@@ -2,7 +2,7 @@
 SIIC - Vietnamese Sentiment Analysis System
 ==========================================
 
-A comprehensive sentiment analysis system for Vietnamese text using 
+A comprehensive sentiment analysis system for Vietnamese text using
 multiple machine learning approaches including PhoBERT, LSTM, and traditional ML models.
 
 Main modules:
@@ -18,10 +18,8 @@ __author__ = "Team InsideOut"
 __email__ = "team@insideout.com"
 
 # Import only essential configs
-from siic.utils.config import (
-    EMOTION_LABELS, LABEL_TO_ID, PROCESSED_DATA_DIR, 
-    MODELS_DIR, RESULTS_DIR, RANDOM_STATE
-)
+from siic.utils.config import (EMOTION_LABELS, LABEL_TO_ID, MODELS_DIR,
+                               PROCESSED_DATA_DIR, RANDOM_STATE, RESULTS_DIR)
 
 # Lazy imports - only import when needed to avoid dependency issues
-# Use: from siic.models.phobert import PhoBERTEmotionDetector 
+# Use: from siic.models.phobert import PhoBERTEmotionDetector

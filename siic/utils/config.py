@@ -1,6 +1,7 @@
 """
 Configuration file for SIIC - Vietnamese Sentiment Analysis System
 """
+
 import os
 from pathlib import Path
 
@@ -25,21 +26,12 @@ ARTIFACTS_DIR = str(ARTIFACTS_DIR)
 CONFIGS_DIR = str(CONFIGS_DIR)
 
 # Emotion categories (3-class for UIT-VSFC dataset)
-EMOTION_LABELS = {
-    0: "negative",
-    1: "neutral", 
-    2: "positive"
-}
+EMOTION_LABELS = {0: "negative", 1: "neutral", 2: "positive"}
 
 LABEL_TO_ID = {v: k for k, v in EMOTION_LABELS.items()}
 
 # Alternative 4-class mapping if needed
-EMOTION_LABELS_4CLASS = {
-    0: "angry",
-    1: "sad",
-    2: "neutral",
-    3: "happy"
-}
+EMOTION_LABELS_4CLASS = {0: "angry", 1: "sad", 2: "neutral", 3: "happy"}
 
 LABEL_TO_ID_4CLASS = {v: k for k, v in EMOTION_LABELS_4CLASS.items()}
 
@@ -62,50 +54,140 @@ LEARNING_RATE = 2e-5
 # as they are crucial for sentiment detection accuracy
 VIETNAMESE_STOPWORDS = [
     # Vowel variants (tones)
-    'à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ',
-    'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ',
-    'ì', 'í', 'ị', 'ỉ', 'ĩ',
-    'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ',
-    'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ',
-    'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ',
-    'đ',
+    "à",
+    "á",
+    "ạ",
+    "ả",
+    "ã",
+    "â",
+    "ầ",
+    "ấ",
+    "ậ",
+    "ẩ",
+    "ẫ",
+    "ă",
+    "ằ",
+    "ắ",
+    "ặ",
+    "ẳ",
+    "ẵ",
+    "è",
+    "é",
+    "ẹ",
+    "ẻ",
+    "ẽ",
+    "ê",
+    "ề",
+    "ế",
+    "ệ",
+    "ể",
+    "ễ",
+    "ì",
+    "í",
+    "ị",
+    "ỉ",
+    "ĩ",
+    "ò",
+    "ó",
+    "ọ",
+    "ỏ",
+    "õ",
+    "ô",
+    "ồ",
+    "ố",
+    "ộ",
+    "ổ",
+    "ỗ",
+    "ơ",
+    "ờ",
+    "ớ",
+    "ợ",
+    "ở",
+    "ỡ",
+    "ù",
+    "ú",
+    "ụ",
+    "ủ",
+    "ũ",
+    "ư",
+    "ừ",
+    "ứ",
+    "ự",
+    "ử",
+    "ữ",
+    "ỳ",
+    "ý",
+    "ỵ",
+    "ỷ",
+    "ỹ",
+    "đ",
     # Pronouns and particles
-    'anh', 'chị', 'em', 'tôi', 'tớ', 'mình', 'bạn', 'ạ', 'ơi', 'à', 'ấy', 'vậy', 'thế', 'này', 'kia', 'đó', 'đây',
+    "anh",
+    "chị",
+    "em",
+    "tôi",
+    "tớ",
+    "mình",
+    "bạn",
+    "ạ",
+    "ơi",
+    "à",
+    "ấy",
+    "vậy",
+    "thế",
+    "này",
+    "kia",
+    "đó",
+    "đây",
     # Prepositions and conjunctions
-    'và', 'với', 'của', 'cho', 'từ', 'trong', 'ngoài', 'trên', 'dưới', 'sau', 'trước', 'giữa',
+    "và",
+    "với",
+    "của",
+    "cho",
+    "từ",
+    "trong",
+    "ngoài",
+    "trên",
+    "dưới",
+    "sau",
+    "trước",
+    "giữa",
     # Common verbs and auxiliary words (sentiment-neutral)
-    'là', 'được', 'có', 'đã', 'sẽ', 'đang', 'bị', 'phải', 'cần', 'nên', 'còn', 'đều', 'cũng'
+    "là",
+    "được",
+    "có",
+    "đã",
+    "sẽ",
+    "đang",
+    "bị",
+    "phải",
+    "cần",
+    "nên",
+    "còn",
+    "đều",
+    "cũng",
     # REMOVED: 'không', 'chưa', 'chẳng' (negation words - critical for sentiment)
     # REMOVED: 'rất', 'quá', 'lắm' (intensity words - important for sentiment strength)
 ]
 
 # Model configurations
 MODEL_CONFIGS = {
-    'logistic_regression': {
-        'C': 1.0,
-        'max_iter': 1000,
-        'random_state': RANDOM_STATE
+    "logistic_regression": {"C": 1.0, "max_iter": 1000, "random_state": RANDOM_STATE},
+    "lstm": {"embedding_dim": 100, "hidden_dim": 128, "num_layers": 2, "dropout": 0.3},
+    "phobert": {
+        "model_name": "vinai/phobert-base",
+        "max_length": 256,
+        "batch_size": 8,
+        "learning_rate": 2e-5,
+        "epochs": 3,
     },
-    'lstm': {
-        'embedding_dim': 100,
-        'hidden_dim': 128,
-        'num_layers': 2,
-        'dropout': 0.3
-    },
-    'phobert': {
-        'model_name': 'vinai/phobert-base',
-        'max_length': 256,
-        'batch_size': 8,
-        'learning_rate': 2e-5,
-        'epochs': 3
-    }
 }
 
 # Performance targets (from comprehensive evaluation)
 PERFORMANCE_TARGETS = {
-    'phobert': {'accuracy': 0.9374, 'f1_score': 0.9344},
-    'svm': {'accuracy': 0.8561, 'f1_score': 0.8488},
-    'optimized_lstm': {'accuracy': 0.8502, 'f1_score': 0.8556},
-    'random_forest': {'accuracy': 0.8290, 'f1_score': 0.8193},
-    'logistic_regression': {'accuracy': 0.8223, 'f1_score': 0.8342}
-} 
+    "phobert": {"accuracy": 0.9374, "f1_score": 0.9344},
+    "svm": {"accuracy": 0.8561, "f1_score": 0.8488},
+    "optimized_lstm": {"accuracy": 0.8502, "f1_score": 0.8556},
+    "random_forest": {"accuracy": 0.8290, "f1_score": 0.8193},
+    "logistic_regression": {"accuracy": 0.8223, "f1_score": 0.8342},
+}
