@@ -53,7 +53,7 @@ logs/
 *.ckpt
 
 # Data files (large datasets - uncomment if datasets are too large)
-*.csv
+# *.csv  # Commented out - datasets are small enough for GitHub
 *.json
 *.xlsx
 *.xls
@@ -92,10 +92,10 @@ results/
 outputs/
 checkpoints/
 
-# Large data files
-data/processed_uit_vsfc_data.csv
-emotion_analysis_results.csv
-youtube_comments.csv
+# Large data files (commented out - files are small enough)
+# data/processed_uit_vsfc_data.csv
+# emotion_analysis_results.csv
+# youtube_comments.csv
 
 # Model directories (uncomment if models are too large)
 models/*.pth
