@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "siic"
+version = "1.0.0"
+description = "Vietnamese Sentiment Analysis System"
+authors = [
+    {name = "Team InsideOut", email = "team@insideout.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["emotion-detection", "vietnamese-nlp", "phobert", "lstm", "sentiment-analysis"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers", 
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9", 
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=1.12.0",
+    "transformers>=4.20.0",
+    "scikit-learn>=1.1.0",
+    "pandas>=1.4.0",
+    "numpy>=1.21.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.11.0",
+    "plotly>=5.0.0",
+    "streamlit>=1.28.0",
+    "underthesea>=6.6.0",
+    "pyvi>=0.1.1",
+    "tqdm>=4.64.0",
+    "requests>=2.28.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0", 
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=0.991",
+    "jupyter>=1.0.0"
+]
+gpu = [
+    "torch>=1.12.0",
+    "torchvision>=0.13.0"
+]
+
+[project.urls]
+homepage = "https://github.com/team-insideout/siic"
+repository = "https://github.com/team-insideout/siic"
+documentation = "https://siic.readthedocs.io/"
+"bug-reports" = "https://github.com/team-insideout/siic/issues"
+
+[project.scripts]
+siic-train = "siic.training.trainers:main"
+siic-evaluate = "scripts.evaluate:main"
+siic-dashboard = "scripts.dashboard:main"
+
+[tool.setuptools.packages.find]
+include = ["siic*"]
+exclude = ["tests*", "docs*"]
+
+[tool.setuptools.package-data]
+siic = ["configs/*.yaml", "configs/*.json"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  | dist
+  | .eggs
+  | .git
+  | .tox
+  | .venv
+  | _build
+  | build
+  | venv
+)/
+'''
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=siic",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--verbose"
+]
+
+[tool.coverage.run]
+source = ["siic"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py"
+] 
